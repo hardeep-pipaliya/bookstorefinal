@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse
 
-# Create your views here.
 
 def index(request):
-    return HttpResponse("hello books application")
+    data = {
+        'title' : 'Django Book App'
+    }
+    return render(request, 'books/index.html', data)
