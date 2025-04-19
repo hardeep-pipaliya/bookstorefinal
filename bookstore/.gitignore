@@ -26,3 +26,5 @@ media/
 # Mac/Linux/Windows system files
 .DS_Store
 Thumbs.db
+
+# GIT ALIAS SHORTCUT IS alias.ac to commit and add content to use git ac "message..."

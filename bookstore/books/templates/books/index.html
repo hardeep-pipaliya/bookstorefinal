@@ -1,12 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
-</head>
-<body>
-    <h3>Welcome To The BookStore</h3>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, sapiente? Quidem tenetur quos ut eaque.</p>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}
+Book-Store
+{% endblock  %}
+{% block nav_title %}
+Welcome To The Django BookStore
+{% endblock  %}
+
+
+{% block content %}  
+<section class="py-10">
+      <div class="grid grid-cols-4 gap-4 mt-10">
+        {% for book in jdata %}
+        <a
+          href="{% url "show" book.id%}"
+          class="justify-self-center text-center my-4"
+          target="_blank"
+        >
+          <div class="justify-self-center">
+            <h3>{{ book.title }}</h3>
+          </div>
+          <img src="{{ book.image.url }}" width="200px" />
+          {% empty %}
+          <p>No books available.</p>
+        </a>
+        {% endfor %}
+      </div>
+    </section>
+ 
+  {% endblock %}

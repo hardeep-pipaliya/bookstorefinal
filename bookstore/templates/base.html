@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>
+      {% block title %}
+      {% endblock %}
+    </title>
+  </head>
+  <body>
+    <nav class="p-4 flex justify-between items-center bg-green-800 text-white w-full shadow">
+      <div class="text-lg font-semibold">
+        <p>MY BOOKSTORE</p>
+      </div>
+      
+      <h1 class="text-center text-4xl">{% block nav_title %}
+      {% endblock %}</h1>
+
+      {% if user.is_authenticated %}
+      <div class="flex items-center space-x-4">
+        <span>Welcome, {{ user.username }}</span>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="p-2 py-2 bg-gray-700 rounded hover:bg-red-600 transition">
+            Logout
+          </button>
+        </form>
+      </div>
+      
+      {% else %}
+      <div class="flex items-center space-x-4">
+        <span>Welcome, {{ user.username }}</span>
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <button type="submit" class="p-2 py-2 bg-gray-700 rounded hover:bg-red-600 transition">
+            Login
+          </button>
+        </form>
+      </div>
+      {% endif %}
+
+    </nav>
+    {% block content %}
+     {% endblock %}
+  </body>
+</html>

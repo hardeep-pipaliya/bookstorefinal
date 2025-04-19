@@ -1,0 +1,53 @@
+{% comment %} {% extends "base.html" %} {% endcomment %}
+
+<title>LOGIN PAGE..</title>
+{% comment %} {% block content %} {% endcomment %}
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" type="text/css" href="/static/slide/navbar style.css">  
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<div class="main">
+
+    
+
+    <input type="checkbox" id="chk" aria-hidden="true">
+    <div class="signup">
+    </div>
+
+    <div class="login">
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <label for="chk" aria-hidden="true">Login</label>
+
+            <!-- Username Field -->
+            {{ form.username.errors }}
+            <input type="text" name="username" placeholder="Username" value="{{ form.username.value|default:'' }}" required>
+
+            <!-- Password Field -->
+            {{ form.password.errors }}
+            <input type="password" name="password" placeholder="Password" required>
+
+            <!-- Hidden next value -->
+            <input type="hidden" name="next" value="{{ next }}">
+
+            <button type="submit">Login</button>
+        </form>
+        <p class='mt-10 ml-28'><a href="{% url 'password_reset' %} ">Lost password?</a></p>
+    </div>
+</div>
+
+ 
+{% if form.errors %}
+<p class="error">Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+ 
+{% if next %}
+    {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+    {% else %}
+        <p class="error">Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+{% comment %} {% endblock %} {% endcomment %}
