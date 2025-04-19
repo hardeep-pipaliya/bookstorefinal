@@ -42,7 +42,7 @@ def show(request, id):
 
 
 # @login_required
-# @csrf_exempt   
+@csrf_exempt   
 def review(request, id):
     if request.user.is_authenticated:
         if request.method == "POST":
