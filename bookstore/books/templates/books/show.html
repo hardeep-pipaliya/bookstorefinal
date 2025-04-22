@@ -32,20 +32,13 @@
       </figure>
       <!-- Existing Form -->
       {% if user.is_authenticated %}
-      <form
-        method="POST"
         <form
         method="POST"
         action="{% url 'review' jdata.id %}"
       >
       {% csrf_token %}
-        >
-        <textarea
-          class="border rounded p-2 w-full m-10"
-          name="review"
-          placeholder="Enter Your Review Here"
-          rows="4"
-        ></textarea>
+      {{ form.review_txt }}
+      {{ form.review_txt.errors }}
         <button
           type="submit"
           class="center border rounded p-2 bg-gray-800 text-white"
@@ -68,13 +61,13 @@
           {% for review in reviews %}
           <li class="bg-gray-100 p-2 rounded shadow">
             <small class="text-sm text-gray-500">
-              ----> {{ review.user_id.username }} 
+              👉 {{ review.user.username }} 
+            &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp   {{ review.created_date|date:"F j, Y" }} at {{ review.created_date|time:"H:i" }}
           </small><br />
             {{ review.review_txt }} 
             <br />
-            <small class="text-sm text-gray-500">
-              {{ review.created_date|date:"F j, Y" }} at {{ review.created_date|time:"H:i" }}
-            </small>
+            {% comment %} <small class="text-sm text-gray-500">
+            </small> {% endcomment %}
           </li>
           {% endfor %}
         </ul>

@@ -16,10 +16,11 @@ class Book(models.Model):
         return f'{self.title} - {self.pagecount}'
 
 class Reviews(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='reviews', default=1)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
     review_txt = models.TextField(null=True)
-    created_date = models.DateTimeField(auto_now=True)
+    created_date = models.DateTimeField(auto_now_add=True, null=True)
+    
 
     def __str__(self):
         return f'{self.review_txt[:5]} - {self.created_date}'
